@@ -4,7 +4,7 @@ default['octopus']['tentacle']['package_name'] = "Octopus Deploy Tentacle"
 default['octopus']['tentacle']['install_dir'] = 'C:\Program Files\Octopus Deploy\Tentacle'
 default['octopus']['tentacle']['port'] = "10933"
 default['octopus']['tentacle']['home'] = 'C:\Octopus'
-default['octopus']['tentacle']['role'] = "webserver"
+default['octopus']['tentacle']['role'] = ['webserver', 'sqlserver']
 default['octopus']['tentacle']['name'] = "Tentacle"
 default['octopus']['tentacle']['environment'] = node.chef_environment
 

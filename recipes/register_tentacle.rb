@@ -22,6 +22,17 @@
 tentacle = node['octopus']['tentacle']
 server = node['octopus']['server']
 api = node['octopus']['api']
+role = node['octopus']['role']
+
+roleout=''
+if role.kind_of?(Array)
+	role.each do |octorole|
+		roleout+="--role=#{octorole} "
+  end
+else
+	roleout="--role=#{role}"
+end
+
 
 # register the tentacle with octopus server
 powershell_script "register_tentacle" do
@@ -33,7 +44,7 @@ powershell_script "register_tentacle" do
 	tentacle configure --instance "#{tentacle['name']}" --app "#{tentacle['home']}\\Applications" --console
 	tentacle configure --instance "#{tentacle['name']}" --port "#{tentacle['port']}" --console
 	tentacle configure --instance "#{tentacle['name']}" --trust "#{server['thumbprint']}" --console
-	tentacle register-with --instance "#{tentacle['name']}" --name="#{tentacle['name']}" --publicHostName=#{node['ipaddress']} --server=#{api['uri']} --apiKey=#{api['key']} --role=#{tentacle['role']} --environment=#{tentacle['environment']} --comms-style TentaclePassive --console
+	tentacle register-with --instance "#{tentacle['name']}" --name="#{tentacle['name']}" --publicHostName=#{node['ipaddress']} --server=#{api['uri']} --apiKey=#{api['key']} #{roleout} --environment=#{tentacle['environment']} --comms-style TentaclePassive --console
 	tentacle service --instance "#{tentacle['name']}" --install --start --console
 	EOH
 	not_if {::File.exists?("#{tentacle['home']}\\Tentacle\\Tentacle.config")}
