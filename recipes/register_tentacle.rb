@@ -46,6 +46,7 @@ powershell_script "register_tentacle" do
 	tentacle configure --instance "#{tentacle['name']}" --trust "#{server['thumbprint']}" --console
 	tentacle register-with --instance "#{tentacle['name']}" --name="#{tentacle['name']}" --publicHostName=#{node['ipaddress']} --server=#{api['uri']} --apiKey=#{api['key']} #{roleout} --environment=#{tentacle['environment']} --comms-style TentaclePassive --console
 	tentacle service --instance "#{tentacle['name']}" --install --start --console
+  New-NetFirewallRule -Program "#{tentacle['install_dir']}\\Tentacle.exe" -Action Allow -Profile Domain, Private, Public -DisplayName "Octopus Deploy Tentacle"
 	EOH
 	not_if {::File.exists?("#{tentacle['home']}\\Tentacle\\Tentacle.config")}
 end
