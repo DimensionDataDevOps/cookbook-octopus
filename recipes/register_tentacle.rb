@@ -22,7 +22,7 @@
 tentacle = node['octopus']['tentacle']
 server = node['octopus']['server']
 api = node['octopus']['api']
-role = node['octopus']['role']
+role = node['octopus']['tentacle']['role']
 
 roleout=''
 if role.kind_of?(Array)
