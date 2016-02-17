@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
+  # backing provider for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
   # config.vm.provider :virtualbox do |vb|

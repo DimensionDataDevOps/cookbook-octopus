@@ -19,23 +19,15 @@
 # limitations under the License.
 #
 
-tentacle = node['octopus']['tentacle']
-tools = node['octopus']['tools']
 
-# download and install the tentacle service
-windows_package tentacle['package_name'] do
-  source tentacle['url']
-  checksum tentacle['checksum']
-  options "INSTALLLOCATION=\"#{tentacle['install_dir']}\""
+include_recipe 'chocolatey'
+
+chocolatey 'octopusdeploy.tentacle' do
+  version node['octopus']['tentacle']['version']
   action :install
 end
 
-octo_exe_path = win_friendly_path("#{tools['home']}/octo.exe")
-
-# download and unzip octopus tools
-windows_zipfile tools['home'] do
-  source tools['url']
-  checksum tools['checksum']
-  action :unzip
-  not_if { ::File.exists?(octo_exe_path) } 
+chocolatey 'octopustools' do
+  version node['octopus']['tools']['version']
+  action :install
 end
