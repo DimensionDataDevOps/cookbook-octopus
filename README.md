@@ -1,3 +1,7 @@
+Deprecated
+===========
+This is no longer maintained, in favor of a DSC resource that will soon be available in the gallery
+
 octopus cookbook
 ================
 [![Cookbook Version](https://img.shields.io/cookbook/v/octopus.svg)](https://supermarket.chef.io/cookbooks/octopus)
